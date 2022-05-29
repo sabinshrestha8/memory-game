@@ -5,16 +5,17 @@
     {{ shuffleImg() }}
 
     <div v-for="img in shuffeledImg" :key="img.id">
-        <img v-bind:src="cover" alt="cover"/>
-        <img v-bind:src="img.src" alt="planet" />
+        <SingleCard :img="img" :cover="cover"/>
     </div>
-    <span>Turns: {{turns}}</span>
+    <span>Turns: {{ turns }}</span>
 </template>
 
 <script>
+import SingleCard from "./components/SingleCard";
+
 export default {
     name: "App",
-    components: {},
+    components: { SingleCard },
     data() {
         return {
             img: [
@@ -44,9 +45,9 @@ export default {
     },
     methods: {
         shuffleImg() {
-            this.shuffeledImg = [...this.img, ...this.img]  // clone the img twice
-                .sort(() => Math.random() - 0.5)    // sort the cloned img randomly 
-                .map((img) => ({ ...img, id: Math.random() }));    // return the shorted array by adding id property
+            this.shuffeledImg = [...this.img, ...this.img] // clone the img twice
+                .sort(() => Math.random() - 0.5) // sort the cloned img randomly
+                .map((img) => ({ ...img, id: Math.random() })); // return the shorted array by adding id property
 
             this.turn = 0;
         },
